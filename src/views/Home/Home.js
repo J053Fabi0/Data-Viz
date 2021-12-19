@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <Fragment>
       <Navbar />
-
       <Container>
         <div className="barChart"></div>
       </Container>
