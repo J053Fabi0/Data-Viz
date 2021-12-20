@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import React, { useEffect } from "react";
+const { estados } = require("../../utils/constantes");
 
 export default function BarChart({
   data,
@@ -10,14 +11,18 @@ export default function BarChart({
   sortBy = "ascendiente",
 }) {
   useEffect(() => {
+    const { innerWidth } = window;
+
     // Borrar el contenido anteriror, si es que había, para crear uno nuevo.
     d3.selectAll("#barChart > *").remove();
 
     // Definir los márgenes.
     const margin = { top: 20, right: 0, bottom: 130, left: 60 };
 
+    const nombresDeEstados = innerWidth <= 480 ? estados.abreviaturas : estados.nombres;
+
     // Hacer un map de los datos.
-    const X = d3.map(data, (d) => d.estado);
+    const X = d3.map(data, (d) => nombresDeEstados[d.índiceDelEstado]);
     const Y = d3.map(data, (d) => d.datos.IDHPromedio);
 
     // Hacer un sorting de los datos.
@@ -25,11 +30,11 @@ export default function BarChart({
       data,
       ([d]) =>
         sortBy === "alfabéticamente" //
-          ? d.estado.toLowerCase()
+          ? nombresDeEstados[d.índiceDelEstado].toLowerCase()
           : sortBy === "descendiente"
           ? d.datos.IDHPromedio
           : -d.datos.IDHPromedio,
-      (d) => d.estado
+      (d) => nombresDeEstados[d.índiceDelEstado]
     );
     const xRange = [margin.left, width - margin.right];
     const xPadding = 0.05;

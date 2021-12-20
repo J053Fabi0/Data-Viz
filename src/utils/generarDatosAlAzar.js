@@ -16,23 +16,22 @@ const generarIntervaloDeAñosAleatorio = (
 /**
  * Generar los datos al azar que alimentarán la gráfica.
  */
-const generarDatosAlAzar = (abreviaturas = false) => {
+const generarDatosAlAzar = () => {
   const datos = {};
-  const nombresEstados = abreviaturas ? estados.abreviaturas : estados.nombres;
   // Genero el intervalo al azar de años.
   const { añoMínimo, añoMayor } = generarIntervaloDeAñosAleatorio();
   // Itero en cada año.
   for (let año = añoMínimo; año <= añoMayor; año++) {
     datos[año] = [];
     // Itero en cada estado.
-    for (const estado of nombresEstados) {
+    for (let i = 0; i < 32; i++) {
       // Genero los IDH al azar.
       const IDHPromedio = azar(10, 100);
       const IDHMenor = azar(10, IDHPromedio);
       const IDHMayor = azar(IDHPromedio, 100);
       // Integro los datos.
       datos[año].push({
-        estado,
+        índiceDelEstado: i,
         datos: { IDHMenor: IDHMenor / 100, IDHPromedio: IDHPromedio / 100, IDHMayor: IDHMayor / 100 },
       });
     }
