@@ -1,40 +1,44 @@
-import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
+import React, { useEffect } from "react";
 
-export default function BarChart({ data, x, y, width = 640, height = 400, sortBy = "ascendiente" } = {}) {
-  const [selectedState, setSelectedState] = useState("");
-
+export default function BarChart({
+  data,
+  width = 640,
+  height = 400,
+  selectedState,
+  setSelectedState,
+  sortBy = "ascendiente",
+}) {
   useEffect(() => {
     // Borrar el contenido anteriror, si es que había, para crear uno nuevo.
     d3.selectAll("#barChart > *").remove();
 
     // Definir los márgenes.
-    const margin = { top: 20, right: 0, bottom: 100, left: 40 };
+    const margin = { top: 20, right: 0, bottom: 130, left: 60 };
 
-    // Hacer un map de los datos, dependiendo de la función otorgada.
-    const X = d3.map(data, x);
-    const Y = d3.map(data, y);
+    // Hacer un map de los datos.
+    const X = d3.map(data, (d) => d.estado);
+    const Y = d3.map(data, (d) => d.datos.IDHPromedio);
 
-    // Construct scales, axes, and formats.
+    // Hacer un sorting de los datos.
     const xDomain = d3.groupSort(
       data,
       ([d]) =>
         sortBy === "alfabéticamente" //
-          ? d.letter.toLowerCase()
+          ? d.estado.toLowerCase()
           : sortBy === "descendiente"
-          ? d.frequency
-          : -d.frequency,
-      (d) => d.letter
+          ? d.datos.IDHPromedio
+          : -d.datos.IDHPromedio,
+      (d) => d.estado
     );
     const xRange = [margin.left, width - margin.right];
     const xPadding = 0.05;
     const xScale = d3.scaleBand(xDomain, xRange).padding(xPadding);
+    const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
 
-    const yDomain = [0, d3.max(Y)];
+    const yDomain = [0, 1];
     const yRange = [height - margin.bottom, margin.top];
     const yScale = d3.scaleLinear(yDomain, yRange);
-
-    const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).ticks(height / 40);
 
     const svg = d3
@@ -46,13 +50,13 @@ export default function BarChart({ data, x, y, width = 640, height = 400, sortBy
       .append("g")
       .attr("transform", `translate(${margin.left},0)`)
       .call(yAxis)
+      .style("font-size", "15px")
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
           .selectAll(".tick line")
-          .clone()
           .attr("x2", width - margin.left - margin.right)
-          .attr("stroke-opacity", 0.1)
+          .attr("stroke-opacity", 0.3)
       );
 
     svg
@@ -63,7 +67,7 @@ export default function BarChart({ data, x, y, width = 640, height = 400, sortBy
       .attr("x", (i) => xScale(X[i]))
       .attr("y", (i) => yScale(Y[i]))
       .attr("height", (i) => yScale(0) - yScale(Y[i]))
-      // El fill de cada barra será gris o rojo, dependiendo de si ha sido seleccionada.
+      // El fill de cada barra será gris o rojo, dependiendo de si ha sido seleccionado el estado.
       .attr("fill", (i) => (X[i] === selectedState ? "red" : "gray"))
       .on("click", (_, i) => {
         if (X[i] !== selectedState) setSelectedState(X[i]);
@@ -76,10 +80,11 @@ export default function BarChart({ data, x, y, width = 640, height = 400, sortBy
       .call(xAxis)
       .selectAll("text")
       .style("text-anchor", "end")
+      .style("font-size", "15px")
       .attr("dx", "-8")
-      .attr("dy", "-2px")
+      .attr("dy", "4px")
       .attr("transform", "rotate(-55)");
-  }, [selectedState, data, height, sortBy, width, x, y]);
+  }, [selectedState, data, height, sortBy, width]);
 
   return <svg className="barChart" id="barChart" width={width} height={height}></svg>;
 }
