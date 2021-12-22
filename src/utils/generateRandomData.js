@@ -21,9 +21,9 @@ const generateRandomData = () => {
     // Itero en cada estado.
     for (let i = 0; i < 32; i++) {
       // Genero los IDH al azar.
-      const averageIDH = random(10, 100);
-      const minIDH = random(10, averageIDH);
-      const maxIDH = random(averageIDH, 100);
+      const averageIDH = random(10, 99);
+      const minIDH = random(10, averageIDH - 1);
+      const maxIDH = random(averageIDH + 1, 100);
       // Integro los datos.
       data[year].push({
         stateIndex: i,
