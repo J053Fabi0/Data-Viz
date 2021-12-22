@@ -35,4 +35,8 @@ describe("La página de inicio.", () => {
     // Encontrar exactamente una barra que sea roja.
     // cy.get(".barChart").find("rect").should("have.attr", "fill", "red");
   });
+
+  it("Mostrar información del estado seleccionado.", () => {
+    cy.get(".data tbody tr").should("have.length", 3);
+  });
 });

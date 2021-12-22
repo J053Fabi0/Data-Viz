@@ -1,4 +1,5 @@
 import BarChart from "./BarChart";
+import Información from "./Información";
 import { Navbar } from "../../components";
 import DropDownSearch from "./DropDownSearch";
 import { Container, Row, Col } from "react-bootstrap";
@@ -85,6 +86,7 @@ export default function Home() {
           selectedState={nombresDeEstados[selectedStateIndex]}
           sortBy={opcionesDeOrdenamiento[selectedSortIndex].toLowerCase()}
         />
+        <Información data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
       </Container>
     </Fragment>
   );
