@@ -1,5 +1,5 @@
 {
-  "nombres": [
+  "names": [
     "Aguascalientes",
     "Baja California",
     "Baja California Sur",
@@ -33,7 +33,7 @@
     "Yucatán",
     "Zacatecas"
   ],
-  "abreviaturas": [
+  "shorts": [
     "AGU",
     "BCN",
     "BCS",

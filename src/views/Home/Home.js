@@ -1,15 +1,15 @@
 import BarChart from "./BarChart";
-import Información from "./Información";
+import Information from "./Information";
 import { Navbar } from "../../components";
 import DropDownSearch from "./DropDownSearch";
+const { states } = require("../../utils/constants");
 import { Container, Row, Col } from "react-bootstrap";
-const { estados } = require("../../utils/constantes");
-const generarDatosAlAzar = require("../../utils/generarDatosAlAzar");
+const generateRandomData = require("../../utils/generateRandomData");
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
 
-const dataDoomy = generarDatosAlAzar();
+const dataDoomy = generateRandomData();
 const years = Object.keys(dataDoomy).reverse();
-const opcionesDeOrdenamiento = ["Ascendiente", "Descendiente", "Alfabéticamente"];
+const sortingOptions = ["Ascendiente", "Descendiente", "Alfabéticamente"];
 
 export default function Home() {
   // El Container dirá el tamaño de la bar chart, por lo que es importante obtener su width.
@@ -21,8 +21,8 @@ export default function Home() {
   }, []);
 
   // Los nombres de los estados cambiarán a las abreviaturas cuando el width sea menor a 481 px.
-  const obtenerNombresDeEstados = () => (window["innerWidth"] <= 480 ? estados.abreviaturas : estados.nombres);
-  const [nombresDeEstados, setNombresDeEstados] = useState(obtenerNombresDeEstados());
+  const getStatesNames = () => (window["innerWidth"] <= 480 ? states.shorts : states.names);
+  const [statesNames, setStatesNames] = useState(getStatesNames());
 
   // Añadir un evento que se ejecute cuando el tamaño de la pantalla cambia.
   useEffect(
@@ -33,7 +33,7 @@ export default function Home() {
           setContainerWidth(containerRef.current.offsetWidth);
 
         // Se evalúan de nuevo qué nombres de estado se usan.
-        setNombresDeEstados(obtenerNombresDeEstados());
+        setStatesNames(getStatesNames());
       }),
     []
   );
@@ -43,8 +43,8 @@ export default function Home() {
   const [selectedSortIndex, setSelectedSortIndex] = useState(0);
 
   // Si hacen clic en una barra de la gráfica, seleccionar el estado.
-  const manejarClicEnBarra = (nombreDeEstado) => {
-    const index = nombresDeEstados.indexOf(nombreDeEstado);
+  const handleClicksOnBar = (stateName) => {
+    const index = statesNames.indexOf(stateName);
     setSelectedStateIndex(index);
   };
 
@@ -57,7 +57,7 @@ export default function Home() {
           <Col className="d-flex justify-content-center">
             <DropDownSearch
               title={"Estado"}
-              items={nombresDeEstados}
+              items={statesNames}
               selectedItemIndex={selectedStateIndex}
               onSelect={(i) => setSelectedStateIndex(+i)}
             />
@@ -73,20 +73,22 @@ export default function Home() {
           <Col className="d-flex justify-content-center">
             <DropDownSearch
               title={"Ordenar datos"}
-              items={opcionesDeOrdenamiento}
+              items={sortingOptions}
               selectedItemIndex={selectedSortIndex}
               onSelect={(i) => setSelectedSortIndex(+i)}
             />
           </Col>
         </Row>
+
         <BarChart
           width={containerWidth}
-          setSelectedState={manejarClicEnBarra}
+          setSelectedState={handleClicksOnBar}
           data={dataDoomy[years[selectedYearIndex]]}
-          selectedState={nombresDeEstados[selectedStateIndex]}
-          sortBy={opcionesDeOrdenamiento[selectedSortIndex].toLowerCase()}
+          selectedState={statesNames[selectedStateIndex]}
+          sortBy={sortingOptions[selectedSortIndex].toLowerCase()}
         />
-        <Información data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
+
+        <Information data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
       </Container>
     </Fragment>
   );
