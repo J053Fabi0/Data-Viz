@@ -2,10 +2,10 @@ import BarChart from "./BarChart";
 import Information from "./Information";
 import { Navbar } from "../../components";
 import DropDownSearch from "./DropDownSearch";
-const { states, barChartBreakPoint } = require("../../utils/constants");
 import BarChartHorizontal from "./BarChartHorizontal";
 import { Container, Row, Col } from "react-bootstrap";
 const generateRandomData = require("../../utils/generateRandomData");
+const { states, barChartBreakPoint } = require("../../utils/constants");
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
 
 const dataDoomy = generateRandomData();
@@ -54,24 +54,20 @@ export default function Home() {
       <Navbar />
 
       <Container ref={containerRef}>
-        <Row className="ajustes mt-3 mb-2">
-          <Col className="d-flex justify-content-center">
+        <Row className="ajustes mt-1 mb-2">
+          <Col className="d-flex justify-content-around flex-wrap">
             <DropDownSearch
               title={"Estado"}
               items={statesNames}
               selectedItemIndex={selectedStateIndex}
               onSelect={(i) => setSelectedStateIndex(+i)}
             />
-          </Col>
-          <Col className="d-flex justify-content-center">
             <DropDownSearch
               title={"Año"}
               items={years}
               selectedItemIndex={selectedYearIndex}
               onSelect={(i) => setSelectedYearIndex(+i)}
             />
-          </Col>
-          <Col className="d-flex justify-content-center">
             <DropDownSearch
               title={"Ordenar datos"}
               items={sortingOptions}
@@ -80,6 +76,8 @@ export default function Home() {
             />
           </Col>
         </Row>
+
+        {/* Las gráficas. */}
         {window["innerWidth"] > barChartBreakPoint ? (
           <BarChart
             width={containerWidth}
@@ -100,6 +98,7 @@ export default function Home() {
           />
         )}
 
+        {/* La información del estado seleccionado. */}
         <Information data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
       </Container>
     </Fragment>

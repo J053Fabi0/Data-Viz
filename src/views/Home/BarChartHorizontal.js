@@ -110,8 +110,8 @@ export default function BarChartHorizontal({
       .text(title)
       .call((text) =>
         text
-          .on("click", onBarClick)
-          .filter((i) => xScale(X[i]) - xScale(0) < 30) // Aquellas barras muy pequeñas...
+          .on("click", onBarClick) // También el texto debe reaccionar a los clics.
+          .filter((i) => xScale(X[i]) - xScale(0) < 40) // Aquellas barras muy pequeñas...
           .attr("dx", +4) // ... tendrán afuera el texto, de color negro.
           .attr("fill", "black")
           .attr("text-anchor", "start")
