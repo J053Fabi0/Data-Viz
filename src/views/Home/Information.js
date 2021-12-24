@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+const { states } = require("../../utils/constants");
 
 export default function Información({ data, selectedStateIndex }) {
   const { minIDH, maxIDH, averageIDH } = data[selectedStateIndex].data;
@@ -9,7 +10,7 @@ export default function Información({ data, selectedStateIndex }) {
       <Table striped bordered>
         <thead>
           <tr>
-            <th colSpan="2">IDH</th>
+            <th colSpan="2">IDH de {states.names[selectedStateIndex]}</th>
           </tr>
         </thead>
 
