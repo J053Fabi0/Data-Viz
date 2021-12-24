@@ -12,7 +12,7 @@ const generateRandomYearInterval = (numberOfYears = 22, minYear = 2000, maxYear 
  * Generar los datos al azar que alimentarán la gráfica.
  */
 const generateRandomData = () => {
-  const minIDHPosible = 0.1 * 100,
+  const minIDHPosible = 0.05 * 100,
     maxIDHPosible = 1 * 100;
   const data = {};
   // Genero el intervalo al azar de años.
