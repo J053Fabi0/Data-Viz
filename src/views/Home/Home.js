@@ -1,9 +1,9 @@
 import BarChart from "./BarChart";
 import Information from "./Information";
 import { Navbar } from "../../components";
+import { Container } from "react-bootstrap";
 import DropDownSearch from "./DropDownSearch";
 import BarChartHorizontal from "./BarChartHorizontal";
-import { Container, Row, Col } from "react-bootstrap";
 const generateRandomData = require("../../utils/generateRandomData");
 const { states, barChartBreakPoint } = require("../../utils/constants");
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
@@ -54,28 +54,26 @@ export default function Home() {
       <Navbar />
 
       <Container ref={containerRef}>
-        <Row className="ajustes mt-1 mb-2">
-          <Col className="d-flex justify-content-around flex-wrap">
-            <DropDownSearch
-              title={"Estado"}
-              items={statesNames}
-              selectedItemIndex={selectedStateIndex}
-              onSelect={(i) => setSelectedStateIndex(+i)}
-            />
-            <DropDownSearch
-              title={"Año"}
-              items={years}
-              selectedItemIndex={selectedYearIndex}
-              onSelect={(i) => setSelectedYearIndex(+i)}
-            />
-            <DropDownSearch
-              title={"Ordenar datos"}
-              items={sortingOptions}
-              selectedItemIndex={selectedSortIndex}
-              onSelect={(i) => setSelectedSortIndex(+i)}
-            />
-          </Col>
-        </Row>
+        <div className="ajustes mt-1 mb-2 d-flex justify-content-around flex-wrap">
+          <DropDownSearch
+            title={"Estado"}
+            items={statesNames}
+            selectedItemIndex={selectedStateIndex}
+            onSelect={(i) => setSelectedStateIndex(+i)}
+          />
+          <DropDownSearch
+            title={"Año"}
+            items={years}
+            selectedItemIndex={selectedYearIndex}
+            onSelect={(i) => setSelectedYearIndex(+i)}
+          />
+          <DropDownSearch
+            title={"Ordenar datos"}
+            items={sortingOptions}
+            selectedItemIndex={selectedSortIndex}
+            onSelect={(i) => setSelectedSortIndex(+i)}
+          />
+        </div>
 
         {/* Las gráficas. */}
         {window["innerWidth"] > barChartBreakPoint ? (
