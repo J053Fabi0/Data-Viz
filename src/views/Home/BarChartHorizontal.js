@@ -116,7 +116,7 @@ export default function BarChartHorizontal({
           .attr("fill", "black")
           .attr("text-anchor", "start")
       );
-  }, [selectedState, data, height, sort, width]);
+  }, [selectedState, data, height, sort, width, selectedYear]);
 
   return <svg className="barChartHorizontal" id="barChartHorizontal" width={width} height={height}></svg>;
 }

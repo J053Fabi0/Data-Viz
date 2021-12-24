@@ -99,7 +99,7 @@ export default function BarChart({
         // Si se hace click en una barra, seleccionar su estado.
         if (X[i] !== selectedState) setSelectedState(X[i]);
       });
-  }, [selectedState, data, height, sort, width]);
+  }, [selectedState, data, height, sort, width, selectedYear]);
 
   return <svg className="barChart" id="barChart" width={width} height={height}></svg>;
 }
