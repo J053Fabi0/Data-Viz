@@ -12,7 +12,6 @@ export default function BarChart({
   sort = "ascendiente",
 }) {
   useEffect(() => {
-    const { innerWidth } = window;
     data = data[selectedYear];
 
     // Borrar el contenido anteriror, si es que había, para crear uno nuevo.
@@ -21,7 +20,7 @@ export default function BarChart({
     // Definir los márgenes.
     const margin = { top: 20, right: 0, bottom: 130, left: 60 };
 
-    const statesNames = innerWidth <= 480 ? states.shorts : states.names;
+    const statesNames = states.names;
 
     // Hacer un map de los datos.
     const X = d3.map(data, (d) => statesNames[d.stateIndex]);
@@ -67,7 +66,8 @@ export default function BarChart({
         (g) =>
           g
             .selectAll(".tick line")
-            .attr("x2", width - margin.left - margin.right) //Añadir una línea a cada valor en el axis que pase a través de todo el svg.
+            //Añadir una línea a cada valor en el axis que pase a través de todo el svg.
+            .attr("x2", width - margin.left - margin.right)
             .attr("stroke-opacity", 0.3) // Hacer esas líneas un poco menos visibles.
       );
 

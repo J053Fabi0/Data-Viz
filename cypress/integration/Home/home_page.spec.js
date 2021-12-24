@@ -4,7 +4,7 @@ describe("La página de inicio.", () => {
   });
 
   it("Mostrar la gráfica con 32 estados.", () => {
-    cy.get(".barChart rect").should("have.length", 32);
+    cy.get("#barChart rect").should("have.length", 32);
   });
 
   it("Mostrar un navbar que diga 'Índice de desarrollo humano'.", () => {
@@ -33,10 +33,28 @@ describe("La página de inicio.", () => {
     cy.get(".dropdown-item").last().click();
 
     // Encontrar exactamente una barra que sea roja.
-    // cy.get(".barChart").find("rect").should("have.attr", "fill", "red");
+    cy.get("#barChart")
+      .find("rect")
+      .then((a) => {
+        let total = 0;
+        for (const b of a) total += b.attributes.fill.value === "red" ? 1 : 0;
+        cy.wrap(total).should("equal", 1);
+      });
   });
 
   it("Mostrar información del estado seleccionado.", () => {
     cy.get(".data tbody tr").should("have.length", 3);
+  });
+
+  it("Mostrar gráfica horizontal al tener menos de 481 de largo.", () => {
+    cy.viewport(480, 1000);
+    cy.get("#barChartHorizontal");
+    // No debe existir la gráfica normal.
+    cy.get("#barChart").should("not.exist");
+
+    // Y revisar que se quita al pasar a 481
+    cy.viewport(481, 1000);
+    cy.get("#barChart");
+    cy.get("#barChartHorizontal").should("not.exist");
   });
 });

@@ -1,16 +1,11 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { Table } from "react-bootstrap";
 
 export default function Información({ data, selectedStateIndex }) {
-  const DataContainer = styled(({ children, className }) => (
-    <div className={`data mt-2 ${className}`}>{children}</div>
-  ))({ marginLeft: 60 });
-
   const { minIDH, maxIDH, averageIDH } = data[selectedStateIndex].data;
 
   return (
-    <DataContainer>
+    <div className="data mt-2">
       <Table striped bordered>
         <thead>
           <tr>
@@ -33,6 +28,6 @@ export default function Información({ data, selectedStateIndex }) {
           </tr>
         </tbody>
       </Table>
-    </DataContainer>
+    </div>
   );
 }

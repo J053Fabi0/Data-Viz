@@ -2,7 +2,8 @@ import BarChart from "./BarChart";
 import Information from "./Information";
 import { Navbar } from "../../components";
 import DropDownSearch from "./DropDownSearch";
-const { states } = require("../../utils/constants");
+const { states, barChartBreakPoint } = require("../../utils/constants");
+import BarChartHorizontal from "./BarChartHorizontal";
 import { Container, Row, Col } from "react-bootstrap";
 const generateRandomData = require("../../utils/generateRandomData");
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
@@ -20,8 +21,8 @@ export default function Home() {
     if (containerRef.current) setContainerWidth(containerRef.current.offsetWidth);
   }, []);
 
-  // Los nombres de los estados cambiarán a las abreviaturas cuando el width sea menor a 481 px.
-  const getStatesNames = () => (window["innerWidth"] <= 480 ? states.shorts : states.names);
+  // Los nombres de los estados cambiarán a las abreviaturas cuando el width sea menor al de barChartBreakPoint.
+  const getStatesNames = () => (window["innerWidth"] <= barChartBreakPoint ? states.shorts : states.names);
   const [statesNames, setStatesNames] = useState(getStatesNames());
 
   // Añadir un evento que se ejecute cuando el tamaño de la pantalla cambia.
@@ -79,15 +80,25 @@ export default function Home() {
             />
           </Col>
         </Row>
-
-        <BarChart
-          width={containerWidth}
-          setSelectedState={handleClicksOnBar}
-          data={dataDoomy}
-          selectedYear={years[selectedYearIndex]}
-          selectedState={statesNames[selectedStateIndex]}
-          sort={sortingOptions[selectedSortIndex].toLowerCase()}
-        />
+        {window["innerWidth"] > barChartBreakPoint ? (
+          <BarChart
+            width={containerWidth}
+            setSelectedState={handleClicksOnBar}
+            data={dataDoomy}
+            selectedYear={years[selectedYearIndex]}
+            selectedState={statesNames[selectedStateIndex]}
+            sort={sortingOptions[selectedSortIndex].toLowerCase()}
+          />
+        ) : (
+          <BarChartHorizontal
+            width={containerWidth}
+            setSelectedState={handleClicksOnBar}
+            data={dataDoomy}
+            selectedYear={years[selectedYearIndex]}
+            selectedState={statesNames[selectedStateIndex]}
+            sort={sortingOptions[selectedSortIndex].toLowerCase()}
+          />
+        )}
 
         <Information data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
       </Container>
