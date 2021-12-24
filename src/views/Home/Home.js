@@ -83,9 +83,10 @@ export default function Home() {
         <BarChart
           width={containerWidth}
           setSelectedState={handleClicksOnBar}
-          data={dataDoomy[years[selectedYearIndex]]}
+          data={dataDoomy}
+          selectedYear={years[selectedYearIndex]}
           selectedState={statesNames[selectedStateIndex]}
-          sortBy={sortingOptions[selectedSortIndex].toLowerCase()}
+          sort={sortingOptions[selectedSortIndex].toLowerCase()}
         />
 
         <Information data={dataDoomy[years[selectedYearIndex]]} selectedStateIndex={selectedStateIndex} />
