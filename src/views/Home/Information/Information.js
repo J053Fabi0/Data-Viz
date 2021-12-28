@@ -1,12 +1,12 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-const { states } = require("../../utils/constants");
+const { states } = require("../../../utils/constants");
 
 export default function Información({ data, selectedStateIndex }) {
   const { minIDH, maxIDH, averageIDH } = data[selectedStateIndex].data;
 
   return (
-    <div className="data mt-2">
+    <div className="data mt-2" data-testid="information">
       <Table striped bordered>
         <thead>
           <tr>

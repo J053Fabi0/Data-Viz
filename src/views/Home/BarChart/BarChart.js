@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import React, { useEffect } from "react";
-const { states } = require("../../utils/constants");
+const { states } = require("../../../utils/constants");
 
 export default function BarChart({
   data,

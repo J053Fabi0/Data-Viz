@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot 1`] = `
+<div
+  className="data mt-2"
+  data-testid="information"
+>
+  <table
+    className="table table-striped table-bordered"
+  >
+    <thead>
+      <tr>
+        <th
+          colSpan="2"
+        >
+          IDH de 
+          Aguascalientes
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Promedio
+        </td>
+        <td>
+          0.5
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Menor
+        </td>
+        <td>
+          0.1
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Mayor
+        </td>
+        <td>
+          1
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

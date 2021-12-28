@@ -1,11 +1,11 @@
-import BarChart from "./BarChart";
-import Information from "./Information";
 import { Navbar } from "../../components";
+import BarChart from "./BarChart/BarChart";
 import { Container } from "react-bootstrap";
-import DropDownSearch from "./DropDownSearch";
-import BarChartHorizontal from "./BarChartHorizontal";
+import Information from "./Information/Information";
+import DropDownSearch from "./DropDownSearch/DropDownSearch";
 const generateRandomData = require("../../utils/generateRandomData");
 const { states, barChartBreakPoint } = require("../../utils/constants");
+import BarChartHorizontal from "./BarChartHorizontal/BarChartHorizontal";
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
 
 const dataDoomy = generateRandomData();
@@ -30,8 +30,9 @@ export default function Home() {
     () =>
       void window.addEventListener("resize", () => {
         // Si el tamaño del container ha cambiado, actualizar su valor.
-        if (containerRef.current && containerWidth !== containerRef.current.offsetWidth)
+        if (containerRef.current && containerWidth !== containerRef.current.offsetWidth) {
           setContainerWidth(containerRef.current.offsetWidth);
+        }
 
         // Se evalúan de nuevo qué nombres de estado se usan.
         setStatesNames(getStatesNames());
@@ -39,9 +40,9 @@ export default function Home() {
     []
   );
 
-  const [selectedStateIndex, setSelectedStateIndex] = useState(0);
   const [selectedYearIndex, setSelectedYearIndex] = useState(0);
   const [selectedSortIndex, setSelectedSortIndex] = useState(0);
+  const [selectedStateIndex, setSelectedStateIndex] = useState(0);
 
   // Si hacen clic en una barra de la gráfica, seleccionar el estado.
   const handleClicksOnBar = (stateName) => {
@@ -54,6 +55,7 @@ export default function Home() {
       <Navbar />
 
       <Container ref={containerRef}>
+        {/* Los dropdown con los ajustes posibles. */}
         <div className="ajustes mt-1 mb-2 d-flex justify-content-around flex-wrap">
           <DropDownSearch
             title={"Estado"}
