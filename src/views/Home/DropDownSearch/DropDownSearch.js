@@ -26,6 +26,7 @@ const CustomMenu = forwardRef(({ children, style, className, "aria-labelledby": 
         value={searchInput}
         placeholder="Buscar"
         className="mx-3 my-2 w-auto"
+        data-testid="search-input"
         onChange={(e) => setSearchInput(e.target.value)}
       />
       <ul className="list-unstyled">
@@ -38,14 +39,6 @@ const CustomMenu = forwardRef(({ children, style, className, "aria-labelledby": 
 });
 
 export default function DropDownSearch({ items, selectedItemIndex = 0, onSelect, title = "Título" }) {
-  const itemsToShow = items.map((v, i) => {
-    return (
-      <Dropdown.Item eventKey={i} key={`${v}${i}`} active={selectedItemIndex === i}>
-        {v}
-      </Dropdown.Item>
-    );
-  });
-
   const Menu = styled(({ children, className }) => (
     <Dropdown.Menu as={CustomMenu} className={className}>
       {children}
@@ -55,8 +48,16 @@ export default function DropDownSearch({ items, selectedItemIndex = 0, onSelect,
     overflowY: "auto",
   });
 
+  const itemsToShow = items.map((v, i) => {
+    return (
+      <Dropdown.Item eventKey={i} key={`${v}${i}`} active={selectedItemIndex === i} data-testid="element">
+        {v}
+      </Dropdown.Item>
+    );
+  });
+
   return (
-    <Dropdown onSelect={onSelect} className="dropdown-search mt-2 mx-1">
+    <Dropdown onSelect={onSelect} className="dropdown-search mt-2 mx-1" data-testid="dropdown">
       <h6 className="m-0 mb-1">{title}</h6>
       <Dropdown.Toggle as={CustomToggle} title={items[selectedItemIndex]} />
 
