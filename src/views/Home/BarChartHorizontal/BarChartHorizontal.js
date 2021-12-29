@@ -50,6 +50,7 @@ export default function BarChartHorizontal({
     const yScale = d3.scaleBand(yDomain, yRange).padding(yPadding);
     const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
 
+    // Crear el svg.
     const svg = d3
       .select("#barChartHorizontal")
       .attr("width", width)
@@ -57,6 +58,7 @@ export default function BarChartHorizontal({
       .attr("viewBox", [0, 0, width, height])
       .attr("style", "max-width: 100%; height: auto;");
 
+    // Añadir el x-axis.
     svg
       .append("g")
       .attr("transform", `translate(0,${margin.top})`)
@@ -70,12 +72,15 @@ export default function BarChartHorizontal({
           .attr("stroke-opacity", 0.2)
       );
 
+    // Añaidr el y-axis.
     svg
       .append("g") //
       .attr("transform", `translate(${margin.left - 3}, 0)`)
       .call(yAxis)
       .call((g) => g.select(".domain").remove()) // Quitar una línea en el y-axis.
-      .style("font-size", "15px");
+      .style("font-size", "15px")
+      .selectAll("text")
+      .attr("data-testid", "stateName");
 
     const onBarClick = (_, i) => {
       // Si se hace click en una barra, seleccionar su estado.
