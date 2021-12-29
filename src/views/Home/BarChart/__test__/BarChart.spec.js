@@ -8,11 +8,11 @@ it("En modo ascendiente, el valor mayor es el primero.", () => {
     <BarChart
       width={500}
       height={500}
-      setSelectedState={() => null}
       data={dataDoomy}
+      sort="ascendiente"
       selectedYear="2000"
       selectedState="Zacatecas"
-      sort="ascendiente"
+      setSelectedState={() => null}
     />
   );
 
@@ -30,11 +30,11 @@ it("En modo descendiente, el valor menor es el primero.", () => {
     <BarChart
       width={500}
       height={500}
-      setSelectedState={() => null}
       data={dataDoomy}
-      selectedYear="2000"
-      selectedState="Aguascalientes"
       sort="descendiente"
+      selectedYear="2000"
+      setSelectedState={() => null}
+      selectedState="Aguascalientes"
     />
   );
 
@@ -52,11 +52,11 @@ it("Modo alfabético.", () => {
     <BarChart
       width={500}
       height={500}
-      setSelectedState={() => null}
       data={dataDoomy}
       selectedYear="2000"
-      selectedState="Aguascalientes"
       sort="alfabéticamente"
+      setSelectedState={() => null}
+      selectedState="Aguascalientes"
     />
   );
 
@@ -70,4 +70,28 @@ it("Modo alfabético.", () => {
     cy.wrap(texts[16].innerHTML).should("equal", "México");
     cy.wrap(texts[17].innerHTML).should("equal", "Nayarit");
   });
+});
+
+it("Clic en una barra.", () => {
+  let selectedState = "Zacatecas";
+  mount(
+    <BarChart
+      width={500}
+      height={500}
+      data={dataDoomy}
+      sort="ascendiente"
+      selectedYear="2000"
+      selectedState="Zacatecas"
+      setSelectedState={(v) => (selectedState = v)}
+    />
+  );
+
+  // El selectedState es Zacatecas en un inicio.
+  cy.wrap(selectedState).should("equal", "Zacatecas");
+
+  // Tras hacer clic en la primera barra, cambia a Aguascalientes.
+  cy.get("rect")
+    .first()
+    .click()
+    .then(() => cy.wrap(selectedState).should("equal", "Aguascalientes"));
 });
