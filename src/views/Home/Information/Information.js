@@ -10,22 +10,24 @@ export default function Información({ data, selectedStateIndex }) {
       <Table striped bordered>
         <thead>
           <tr>
-            <th colSpan="2">IDH de {states.names[selectedStateIndex]}</th>
+            <th data-testid="title" colSpan="2">
+              IDH de {states.names[selectedStateIndex]}
+            </th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
             <td>Promedio</td>
-            <td>{averageIDH}</td>
+            <td data-testid="average">{averageIDH}</td>
           </tr>
           <tr>
             <td>Menor</td>
-            <td>{minIDH}</td>
+            <td data-testid="min">{minIDH}</td>
           </tr>
           <tr>
             <td>Mayor</td>
-            <td>{maxIDH}</td>
+            <td data-testid="max">{maxIDH}</td>
           </tr>
         </tbody>
       </Table>

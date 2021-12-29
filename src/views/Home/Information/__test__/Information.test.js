@@ -15,7 +15,7 @@ const data = [
 ];
 const selectedStateIndex = 0;
 
-it("Matches snapshot", () => {
+test("Matches snapshot", () => {
   const tree = renderer.create(<Information data={data} selectedStateIndex={selectedStateIndex} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

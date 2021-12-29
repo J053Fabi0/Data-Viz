@@ -1,7 +1,5 @@
 describe("La página de inicio.", () => {
-  beforeEach(() => {
-    cy.visit("/");
-  });
+  beforeEach(() => void cy.visit("/"));
 
   it("Mostrar la gráfica con 32 estados.", () => {
     cy.get("#barChart rect").should("have.length", 32);
