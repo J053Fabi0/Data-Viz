@@ -81,6 +81,7 @@ export default function BarChart({
       .style("font-size", "15px")
       .attr("dx", "-8") // Ajustar la posición del texto un poco.
       .attr("dy", "4px")
+      .attr("data-testid", "stateName")
       .attr("transform", "rotate(-55)"); // Rotarlo para que sean visibles.
 
     // Añadir barras.
@@ -95,7 +96,7 @@ export default function BarChart({
       .attr("width", xScale.bandwidth())
       // El fill de cada barra será gris o rojo, dependiendo de si ha sido seleccionado el estado.
       .attr("fill", (i) => (X[i] === selectedState ? "red" : "gray"))
-      .on("click", (_, i) => {
+      .on("click", (i) => {
         // Si se hace click en una barra, seleccionar su estado.
         if (X[i] !== selectedState) setSelectedState(X[i]);
       });

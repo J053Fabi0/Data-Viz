@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:3000",
+  "coverage": true,
   "component": {
     "componentFolder": "src",
     "testFiles": "**/__test__/*.spec.{js,jsx,ts,tsx}"
