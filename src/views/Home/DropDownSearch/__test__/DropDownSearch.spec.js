@@ -19,6 +19,11 @@ it("El elemento seleccionado es azul", () => {
   cy.get("[data-testid=element]").first().should("have.class", "active");
 });
 
+it("El título coincide.", () => {
+  mount(<DropDownSearch title="Title" items={items} selectedItemIndex={0} onSelect={() => null} />);
+  cy.get("[data-testid=title]").contains("Title");
+});
+
 it("Al hacer clic en un elemento se retorna.", () => {
   let selectedItemIndex = 0;
 
