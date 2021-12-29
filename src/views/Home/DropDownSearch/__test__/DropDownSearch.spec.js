@@ -4,17 +4,36 @@ import DropDownSearch from "../DropDownSearch";
 
 const items = ["1", "2", "3", "4", "5"];
 
-beforeEach(() => {
-  mount(<DropDownSearch title="Title" items={items} selectedItemIndex={0} onSelect={() => null} />);
-});
+beforeEach(() => {});
 
 it("Al buscar se filtran los resultados", () => {
+  mount(<DropDownSearch title="Title" items={items} selectedItemIndex={0} onSelect={() => null} />);
   cy.get("[data-testid=dropdown]").click();
   cy.get("[data-testid=search-input]").type("5");
   cy.get("[data-testid=element]").should("have.length", 1).contains("5");
 });
 
-it("El elemento seleccionado el azul", () => {
+it("El elemento seleccionado es azul", () => {
+  mount(<DropDownSearch title="Title" items={items} selectedItemIndex={0} onSelect={() => null} />);
   cy.get("[data-testid=dropdown]").click();
   cy.get("[data-testid=element]").first().should("have.class", "active");
+});
+
+it("Al hacer clic en un elemento se retorna.", () => {
+  let selectedItemIndex = 0;
+
+  mount(
+    <DropDownSearch
+      title="Title"
+      items={items}
+      selectedItemIndex={selectedItemIndex}
+      onSelect={(i) => (selectedItemIndex = i)}
+    />
+  );
+
+  cy.get("[data-testid=dropdown]").click();
+  cy.get("[data-testid=element]")
+    .last()
+    .click()
+    .then(() => cy.wrap(selectedItemIndex).should("equal", 4));
 });

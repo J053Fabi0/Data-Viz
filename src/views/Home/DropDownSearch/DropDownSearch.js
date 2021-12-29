@@ -57,7 +57,11 @@ export default function DropDownSearch({ items, selectedItemIndex = 0, onSelect,
   });
 
   return (
-    <Dropdown onSelect={onSelect} className="dropdown-search mt-2 mx-1" data-testid="dropdown">
+    <Dropdown
+      onSelect={(i, ...a) => onSelect(+i, ...a)}
+      className="dropdown-search mt-2 mx-1"
+      data-testid="dropdown"
+    >
       <h6 className="m-0 mb-1">{title}</h6>
       <Dropdown.Toggle as={CustomToggle} title={items[selectedItemIndex]} />
 
