@@ -1,7 +1,8 @@
 import React from "react";
 import { mount } from "@cypress/react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import BarChartHorizontal from "../BarChartHorizontal";
-import dataDoomy from "../../../../../cypress/fixtures/data.json";
+import dataDoomy from "../../../../cypress/fixtures/data.json";
 
 beforeEach(() => void cy.viewport(500, 800));
 

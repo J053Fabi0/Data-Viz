@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "@cypress/react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import DropDownSearch from "../DropDownSearch";
 
 const items = ["1", "2", "3", "4", "5"];

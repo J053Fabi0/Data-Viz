@@ -1,7 +1,8 @@
 import React from "react";
 import BarChart from "../BarChart";
 import { mount } from "@cypress/react";
-import dataDoomy from "../../../../../cypress/fixtures/data.json";
+import "bootstrap/dist/css/bootstrap.min.css";
+import dataDoomy from "../../../../cypress/fixtures/data.json";
 
 it("En modo ascendiente, el valor mayor es el primero.", () => {
   mount(

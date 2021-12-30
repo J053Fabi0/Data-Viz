@@ -1,12 +1,9 @@
-import { Navbar } from "../../components";
-import BarChart from "./BarChart/BarChart";
 import { Container } from "react-bootstrap";
 import Information from "./Information/Information";
-import DropDownSearch from "./DropDownSearch/DropDownSearch";
 const generateRandomData = require("../../utils/generateRandomData");
 const { states, barChartBreakPoint } = require("../../utils/constants");
-import BarChartHorizontal from "./BarChartHorizontal/BarChartHorizontal";
 import React, { Fragment, useState, useEffect, useRef, useLayoutEffect } from "react";
+import { Navbar, BarChart, BarChartHorizontal, DropDownSearch } from "../../components";
 
 const dataDoomy = generateRandomData();
 const years = Object.keys(dataDoomy).reverse();

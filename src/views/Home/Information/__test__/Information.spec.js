@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "@cypress/react";
 import Information from "../Information";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const data = [
   {
