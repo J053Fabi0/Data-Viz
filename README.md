@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# Tabla de contenidos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- table-of-content GFM -->
 
-## Available Scripts
++ [Herramientas de testing](#herramientas-de-testing)
+  * [Cypress](#cypress)
+    - [Correr los unit-test](#correr-los-unit-test)
+    - [Configuración de Cypress para los unit-test.](#configuración-de-cypress-para-los-unit-test)
+  * [Jest](#jest)
++ [Estructura del proyecto](#estructura-del-proyecto)
+  * [`assets`](#assets)
+  * [`components`](#components)
+  * [`utils`](#utils)
+  * [`views`](#views)
+  * [`styles`](#styles)
+  * [Créditos](#créditos)
++ [Librerías ocupadas](#librerías-ocupadas)
+  * [Emotion styled](#emotion-styled)
+  * [React Bootstrap](#react-bootstrap)
+  * [D3](#d3)
 
-In the project directory, you can run:
+<!-- table-of-content -->
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Herramientas de testing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Cypress
 
-### `npm test`
+Usé Cypress tanto para End-to-End como para **Unit** testing.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Preferí usar Cypress para Unit testing porque tiene las mismas ventajas que Cypress ya entrega, como poder ver tus tests
+en vivo cuando se ejecutan, a pesar de que está en estado alpha esta funcionalidad de Cypress, y tuve algunos problemas
+con un bug, pero encontré una forma de sobrellevarlo por el momento.
 
-### `npm run build`
+Aquí hay algunos materiales que me ayudaron a tomar la decisión:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [Component testing - Introduction](https://docs.cypress.io/guides/component-testing/introduction).
+* [Introducing the Cypress Component Test Runner– new in 7.0.0](https://www.cypress.io/blog/2021/04/06/introducing-the-cypress-component-test-runner/).
+* [Component Testing Example: Create React App](https://github.com/cypress-io/cypress-component-testing-examples/tree/main/create-react-app).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Correr los unit-test
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **Para abrir la UI:** `npx cypress open-ct`.
+  [![2021-12-29-12-57.png](https://i.postimg.cc/zf00Bsvq/2021-12-29-12-57.png)](https://postimg.cc/rdRSZY5H)
 
-### `npm run eject`
+* **Para hacerlo sin UI:** `npx cypress run-ct`.
+  [![2021-12-29-13-20.png](https://i.postimg.cc/pXMzNPY3/2021-12-29-13-20.png)](https://postimg.cc/6TzynJPh)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Configuración de Cypress para los unit-test.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+El regex particular de este proyecto para los unit-test está definido de forma que solo aquellos tests que estén bajo una carpeta `__test__` serán tomados en cuenta. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+"component": {
+  "componentFolder": "src",
+  "testFiles": "**/__test__/*.spec.{js,jsx,ts,tsx}"
+}
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+La forma en la que están organizados los componentes es que cada uno va en su propia carpeta, para que ahí mismo pueda ir la carpeta `__test__` de ese componente.
 
-## Learn More
+```
+.
+└── /Button
+    ├── /__test__
+    |   └── Button.spec.js
+    └── Button.js
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Jest
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Usé Jest para hacer un snapshot test, pero no continué con Jest ya que comencé a usar Cypress para unit testing, por lo que el test de snapshot no es necesario, pero lo dejo como evidencia, así como un test para DropDownSearch en el cual intenté usar `fireEvent`, pero está inconcluso.
 
-### Code Splitting
+# Estructura del proyecto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+.
+└── /src
+    ├── /assets
+    ├── /components
+    ├── /utils
+    ├── /views
+    ├── /styles
+    ├── index.js
+    └── App.js
+```
 
-### Analyzing the Bundle Size
+## `assets`
+Fotos, logotipos, archivos, videos, etc.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## `components`
+Componentes que se pueden ocupar globalmente, genéricos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+El `index.js` es para poder importar los componentes en una sola línea:
+`import { TextField, Select, Radio } from '@components'`
 
-### Advanced Configuration
+El `index.js` seguirá esta estructura:
+```
+import { TextField } from './TextField/TextField'
+import { Select } from './Select/Select'
+import { Radio } from './Radio/Radio'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+export { TextField, Select, Radio }
+```
 
-### Deployment
+## `utils`
+Funciones globales que hacen cosas muy genéricas, fáciles de reutilizar en diversos contextos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## `views`
+Todas las páginas del sitio. Ej: El home o la de Contacto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## `styles`
+Todos los archivos que exporten objetos que se puedan ocupar luego con emotion/styled.
+
+## Créditos
+
+Basé la estructura en este blog: <https://www.taniarascia.com/react-architecture-directory-structure>
+
+# Librerías ocupadas
+
+## Emotion styled
+Es para darle estilo a los elementos de React sin los problemas de usar archivos CSS, ni la pérdida en preformance al usar CSS inline.
+
+Resumen de toda la sintaxis: <https://emotion.sh/docs/styled>.
+
+Cómo aplicar un tema: <https://emotion.sh/docs/theming>.
+
+Una introducción práctica: <https://mauriciogc.medium.com/react-formas-de-dise%C3%B1ar-componentes-de-react-desde-estilos-en-l%C3%ADnea-hasta-css-in-js-5cafe15b13fa#be17>. Esa es una gran página que muestra un resumen de muchas formas de crear estilos en React, de las cuales he deducido que la más apropiada es `@emotion/styled`.
+
+## React Bootstrap
+
+Documentación: <https://react-bootstrap.github.io/components/alerts>.
+
+## D3
+
+Documentación: <https://devdocs.io/d3>
