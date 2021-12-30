@@ -33,9 +33,7 @@
 
 Usé Cypress tanto para End-to-End como para **Unit** testing.
 
-Preferí usar Cypress para Unit testing porque tiene las mismas ventajas que Cypress ya entrega, como poder ver tus tests
-en vivo cuando se ejecutan, a pesar de que está en estado alpha esta funcionalidad de Cypress, y tuve algunos problemas
-con un bug, pero encontré una forma de sobrellevarlo por el momento.
+Preferí usar Cypress para Unit testing porque tiene las mismas ventajas que Cypress ya entrega, como poder ver tus tests en vivo cuando se ejecutan, y lo preferí sobre Jest a pesar de que esta funcionalidad está en estado alpha y que tuve que enfrentar un bug, pero encontré una forma de solucionarlo.
 
 Aquí hay algunos materiales que me ayudaron a tomar la decisión:
 
